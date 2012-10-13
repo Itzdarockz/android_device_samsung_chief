@@ -209,7 +209,10 @@ service wlandutservice /system/bin/wlandutservice
     disabled
     oneshot
 
-service wpa_supplicant /system/bin/wpa_supplicant -Dwext -iwlan0 -c/data/misc/wifi/wpa_supplicant.conf
+service wpa_supplicant /system/bin/wpa_supplicant -Dwext -ieth0 -c/data/misc/wifi/wpa_supplicant.conf
+    user root
+    group wifi inet
+    socket wpa_eth0 dgram 660 wifi wifi
     disabled
     oneshot
 
@@ -220,9 +223,14 @@ service hostapd /system/bin/wlan_tool hostapd
     oneshot
     disabled
 
-service dhcpcd /system/bin/dhcpcd wlan0
+service dhcpcd_eth0 /system/bin/dhcpcd -BKL eth0
     disabled
     oneshot
+
+service iprenew_eth0 /system/bin/dhcpcd -n
+    disabled
+    oneshot
+
 
 service wlan_tool /system/bin/wlan_tool
     oneshot

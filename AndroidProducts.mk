@@ -1,2 +1,2 @@
 PRODUCT_MAKEFILES := \
-    $(LOCAL_DIR)/conquer.mk
+    $(LOCAL_DIR)/chief.mk

@@ -1,41 +1,58 @@
-USE_CAMERA_STUB := true
-
 # inherit from the proprietary version
--include vendor/samsung/conquer/BoardConfigVendor.mk
-TARGET_NO_BOOTLOADER := true
-#TARGET_NO_KERNEL := true
+-include vendor/samsung/chief/BoardConfigVendor.mk
+
+# Board General info
+#TARGET_NO_BOOTLOADER := true
 HAVE_HTC_AUDIO_DRIVER := false
 BOARD_CAMERA_USE_GETBUFFERINFO:=true
 #ANDROID_JPEG_NO_ASSEMBLER := true 
 #BOARD_USE_FROYO_LIBCAMERA := false
 TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
-TARGET_ARCH_VARIANT := armv7-a-neon
-ARCH_ARM_HAVE_TLS_REGISTER := true
-#audiostuff
+BOARD_USES_QCOM_LIBS := true
+BOARD_USES_QCOM_VOIPMUTE := false
+BOARD_USE_QCOM_SPEECH := true
+TARGET_BOARD_PLATFORM := msm7k
+TARGET_BOOTLOADER_BOARD_NAME := SPH-D600
+BOARD_HAS_NO_SELECT_BUTTON := true
+
+# audio
 BUILD_TINY_ANDROID := false
 QC_PROP := true
+BOARD_USES_GENERIC_AUDIO := false
+TARGET_PROVIDES_LIBAUDIO := true
 
-TARGET_BOOTLOADER_BOARD_NAME := SPH-D600
-TARGET_BOARD_PLATFORM := msm7x30
+# wifi
+BOARD_WPA_SUPPLICANT_DRIVER := WEXT
+WPA_SUPPLICANT_VERSION := VER_0_6_X
+BOARD_WLAN_DEVICE := bcm4329
+WIFI_DRIVER_FW_PATH_STA := "/system/etc/wifi/bcm4329_sta.bin"
+WIFI_DRIVER_FW_PATH_AP := "/system/etc/wifi/bcm4329_aps.bin"
+WIFI_DRIVER_MODULE_NAME := "dhd"
+WIFI_DRIVER_MODULE_PATH := "/lib/modules/dhd.ko"
+WIFI_DRIVER_MODULE_ARG := "firmware_path=/system/etc/wifi/bcm4329_sta.bin nvram_path=/system/etc/wifi/nvram_net.txt"
+
+# video
 TARGET_BOARD_PLATFORM_GPU := qcom-adreno205
-TARGET_USES_2G_VM_SPLIT := true
-TARGET_USES_OLD_LIBSENSORS_HAL := true
-BOARD_USES_QCOM_VOIPMUTE := false
+BOARD_CUSTOM_GRAPHICS:= ../../../device/samsung/chief/recovery/minui/graphics.c
+BOARD_EGL_CFG := device/samsung/chief/files/egl.cfg
+
+# Bluetooth
+BOARD_HAVE_BLUETOOTH := true
+BOARD_HAVE_BLUETOOTH_BCM := true
+
+# kernel
 BOARD_KERNEL_CMDLINE := console=ttyDCC0 androidboot.hardware=SPH-D600
 BOARD_KERNEL_BASE := 0x00400000
 BOARD_KERNEL_PAGESIZE := 4096
+TARGET_PREBUILT_KERNEL := device/samsung/chief/kernel
 
-# fix this up by examining /proc/mtd on a running device
+# Partitioning setup (fix this up by examining /proc/mtd on a running device)
 BOARD_BOOTIMAGE_PARTITION_SIZE := 0x00800000
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 0x00800000
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 0x0f000000
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 0x21fc0000
 BOARD_FLASH_BLOCK_SIZE := 131072
-
-TARGET_PREBUILT_KERNEL := device/samsung/conquer/kernel
-
-BOARD_HAS_NO_SELECT_BUTTON := true
 
 ## PARTITION LAYOUT/INFO ##
 BOARD_DATA_DEVICE := /dev/block/mtdblock10
@@ -54,7 +71,6 @@ TARGET_USERIMAGES_USE_EXT4 := false
 BOARD_SDCARD_DEVICE_PRIMARY := /dev/block/vold/179:1 
 
 USE_CAMERA_STUB := true
-#AUDIOZ
 
 # custom lun0 file for USB Mass Storage
 #BOARD_UMS_LUNFILE := /sys/devices/platform/s3c-usbgadget/gadget/lun0/file
@@ -63,8 +79,8 @@ BOARD_RECOVERY_HANDLES_MOUNT := true
 WITH_DEXPREOPT := true
 JS_ENGINE := v8
 
-TARGET_SPECIFIC_HEADER_PATH += device/samsung/conquer/files
-BOARD_USE_QCOM_SPEECH := true
+TARGET_SPECIFIC_HEADER_PATH += device/samsung/chief/include
+
 # FM Radio (needed for the audio driver to compile)
 #BOARD_USE_QCOM_SPEECH:=true
 #BOARD_HAVE_FM_RADIO := true
@@ -76,41 +92,4 @@ BOARD_USE_QCOM_SPEECH := true
 #TARGET_GLOBAL_CPPFLAGS += -DHAVE_FM_RADIO
 #BOARD_USE_BROADCOM_FM_VOLUME_HACK := false
 
-# Use this flag if the board has a ext4 partition larger than 2gb
-#BOARD_HAS_LARGE_FILESYSTEM := true
-BOARD_CUSTOM_GRAPHICS:= ../../../device/samsung/conquer/recovery/minui/graphics.c
-BOARD_USES_QCOM_LIBS := true
-BOARD_USES_QCOM_LIBRPC := true
-BOARD_USE_QCOM_PMEM := true
-BOARD_HAVE_BLUETOOTH := true
-BOARD_HAVE_BLUETOOTH_BCM := true
-BOARD_USES_GENERIC_AUDIO := false
-TARGET_PROVIDES_LIBAUDIO := false
-BOARD_OVERLAY_FORMAT_YCbCr_420_SP := true
-BOARD_OVERLAY_MINIFICATION_LIMIT := 2
-BOARD_NO_RGBX_8888 := true
-
-#wifi
-BOARD_WPA_SUPPLICANT_DRIVER := WEXT
-WPA_SUPPLICANT_VERSION := VER_0_6_X
-BOARD_WLAN_DEVICE := libra
-WIFI_DRIVER_MODULE_PATH := "/system/lib/modules/libra.ko"
-WIFI_DRIVER_MODULE_NAME := "libra"
-WIFI_SDIO_IF_DRIVER_MODULE_PATH := "/system/lib/modules/librasdioif.ko"
-WIFI_SDIO_IF_DRIVER_MODULE_NAME := "librasdioif"
-BOARD_WEXT_NO_COMBO_SCAN := true
-
-#camera
-BOARD_CAMERA_USE_GETBUFFERINFO := true
-BOARD_USE_CAF_LIBCAMERA := true
-
-# GPS may not work
-BOARD_USES_QCOM_GPS := true
-BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := SPH-D600
-BOARD_VENDOR_QCOM_GPS_LOC_API_AMSS_VERSION := 50000
-#BOARD_VENDOR_QCOM_GPS_NEEDS_LNA := true
-#BOARD_VENDOR_QCOM_GPS_HAS_BROKEN_XTRA := true
-
-#usb
-BOARD_USE_USB_MASS_STORAGE_SWITCH := true
 

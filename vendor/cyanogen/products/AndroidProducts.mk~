@@ -1,1 +1,1 @@
-PRODUCT_MAKEFILES := $(LOCAL_DIR)/cyanogenmod_chief.mk
+PRODUCT_MAKEFILES := $(LOCAL_DIR)/cyanogen_chief.mk

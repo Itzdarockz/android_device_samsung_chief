@@ -1,4 +1,4 @@
-BASE=../../../vendor/samsung/conquer/proprietary
+BASE=../../../vendor/samsung/chief/proprietary
 rm -rf $BASE/*
 
 for FILE in `egrep -v '(^#|^$)' proprietary-files.txt`; do

@@ -1,1 +1,1 @@
-PRODUCT_MAKEFILES := $(LOCAL_DIR)/cyanogenmod_conquer.mk
+PRODUCT_MAKEFILES := $(LOCAL_DIR)/cyanogenmod_chief.mk

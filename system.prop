@@ -18,7 +18,7 @@ gsm.operator.iso-country=us
 gsm.operator.numeric=310120
 ro.cdma.home.operator.numeric=310120
 
-wifi.interface=eth0
+
 wifi.supplicant_scan_interval=90
 
 lpa.decode=false
@@ -27,3 +27,4 @@ ro.hdmi.enable=false
 ro.use_data_netmgrd=true
 ro.config.ehrpd=true
 keyguard.no_require_sim=true
+ro.sf.lcd_density=160
