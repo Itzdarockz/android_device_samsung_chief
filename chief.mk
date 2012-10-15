@@ -1,11 +1,13 @@
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
-
+$(call inherit-product, vendor/cyanogen/products/common.mk)
 # The gps config appropriate for this device
 $(call inherit-product, device/common/gps/gps_us_supl.mk)
 
 $(call inherit-product-if-exists, vendor/samsung/chief/chief-vendor.mk)
 
 DEVICE_PACKAGE_OVERLAYS += device/samsung/chief/overlay
+
+-include device/semc/msm7x30-common/msm7x30.mk
 
 ifeq ($(TARGET_PREBUILT_KERNEL),)
 	LOCAL_KERNEL := device/samsung/chief/kernel
@@ -27,23 +29,15 @@ PRODUCT_COPY_FILES += \
 #PRODUCT_COPY_FILES += \
 #    device/samsung/chief/files/ueventd.rc:root/ueventd.rc
 
-PRODUCT_PACKAGES += \
-    Gallery3d \
-    SpareParts \
-    Term \
-    FileManager \
-    LatinIME \
-    Mms \
-    copybit.msm7k \
-    gralloc.msm7k \
-    overlay.default \
-    libOmxCore \
-    libOmxVenc \
-    libOmxVdec
-
-# Camera
-PRODUCT_PACKAGES += \
-    camera.msm7k
+#Offline charging animation
+PRODUCT_COPY_FILES += \
+    device/semc/msm7x30-common/prebuilt/animations/charging_animation_01_H.png:system/semc/chargemon/data/charging_animation_01.png \
+    device/semc/msm7x30-common/prebuilt/animations/charging_animation_02_H.png:system/semc/chargemon/data/charging_animation_02.png \
+    device/semc/msm7x30-common/prebuilt/animations/charging_animation_03_H.png:system/semc/chargemon/data/charging_animation_03.png \
+    device/semc/msm7x30-common/prebuilt/animations/charging_animation_04_H.png:system/semc/chargemon/data/charging_animation_04.png \
+    device/semc/msm7x30-common/prebuilt/animations/charging_animation_05_H.png:system/semc/chargemon/data/charging_animation_05.png \
+    device/semc/msm7x30-common/prebuilt/animations/charging_animation_06_H.png:system/semc/chargemon/data/charging_animation_06.png \
+    device/semc/msm7x30-common/prebuilt/animations/charging_animation_07_H.png:system/semc/chargemon/data/charging_animation_07.png
 
 #kernel modules
 PRODUCT_COPY_FILES += \
@@ -69,6 +63,7 @@ PRODUCT_COPY_FILES += \
     device/samsung/chief/init.qcom.fm.sh:system/etc/init.qcom.fm.sh \
     device/samsung/chief/init.qcom.sdio.sh:system/etc/init.qcom.sdio.sh \
     device/samsung/chief/init.qcom.wifi.sh:system/etc/init.qcom.wifi.sh \
+        device/semc/msm7x30-common/prebuilt/logo_H.rle:root/logo.rle
 
 # wifi files
 PRODUCT_COPY_FILES += \
@@ -93,6 +88,11 @@ PRODUCT_COPY_FILES += \
     device/samsung/chief/files/system/etc/firmware/vidc_720p_vc1_dec_mc.fw:/system/etc/firmware/vidc_720p_vc1_dec_mc.fw \
     device/samsung/chief/files/system/etc/firmware/vidc_720p_h264_enc_mc.fw:/system/etc/firmware/vidc_720p_h264_enc_mc.fw 
 
+# audio
+#PRODUCT_COPY_FILES += \
+    #vendor/samsung/chief/proprietary/lib/libaudio.so:obj/lib/libaudio.so 
+    #vendor/samsung/chief/proprietary/lib/libaudiopolicy.so:obj/lib/libaudiopolicy.so
+    
 # misc for now
 PRODUCT_COPY_FILES += \
     device/samsung/chief/files/system/etc/apns-conf.xml:system/etc/apns-conf.xml \
@@ -136,10 +136,25 @@ PRODUCT_PROPERTY_OVERRIDES += \
     persist.sys.use_dithering=0 \
     ro.compcache.default=0
 
+# Properties taken from build.prop
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.com.google.clientidbase=android-samsung \
+    ro.com.google.clientidbase.yt=android-sprint-us \
+    ro.com.google.clientidbase.am=android-sprint-us \
+    ro.com.google.clientidbase.ms=android-sprint-us \
+    ro.com.google.clientidbase.gmm=android-samsung
+    
+# Set region
+PRODUCT_DEFAULT_LANGUAGE := en_US
+PRODUCT_DEFAULT_REGION := US
+
+# Chief uses medium-density artwork where available
+PRODUCT_LOCALES += mdpi
+
 PRODUCT_COPY_FILES += \
     $(LOCAL_KERNEL):kernel
 
-
+$(call inherit-product, build/target/product/full.mk)
 
 PRODUCT_NAME := cyanogenmod_chief
 PRODUCT_DEVICE := chief

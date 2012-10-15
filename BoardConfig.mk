@@ -1,26 +1,20 @@
 # inherit from the proprietary version
 -include vendor/samsung/chief/BoardConfigVendor.mk
+-include device/semc/msm7x30-common/BoardConfigCommon.mk
 
 # Board General info
 #TARGET_NO_BOOTLOADER := true
 HAVE_HTC_AUDIO_DRIVER := false
 BOARD_CAMERA_USE_GETBUFFERINFO:=true
-#ANDROID_JPEG_NO_ASSEMBLER := true 
-#BOARD_USE_FROYO_LIBCAMERA := false
-TARGET_CPU_ABI := armeabi-v7a
-TARGET_CPU_ABI2 := armeabi
-BOARD_USES_QCOM_LIBS := true
-BOARD_USES_QCOM_VOIPMUTE := false
-BOARD_USE_QCOM_SPEECH := true
-TARGET_BOARD_PLATFORM := msm7k
 TARGET_BOOTLOADER_BOARD_NAME := SPH-D600
 BOARD_HAS_NO_SELECT_BUTTON := true
+TARGET_USES_2G_VM_SPLIT := false
 
 # audio
 BUILD_TINY_ANDROID := false
 QC_PROP := true
 BOARD_USES_GENERIC_AUDIO := false
-TARGET_PROVIDES_LIBAUDIO := true
+#TARGET_PROVIDES_LIBAUDIO := true
 
 # wifi
 BOARD_WPA_SUPPLICANT_DRIVER := WEXT
@@ -33,7 +27,7 @@ WIFI_DRIVER_MODULE_PATH := "/lib/modules/dhd.ko"
 WIFI_DRIVER_MODULE_ARG := "firmware_path=/system/etc/wifi/bcm4329_sta.bin nvram_path=/system/etc/wifi/nvram_net.txt"
 
 # video
-TARGET_BOARD_PLATFORM_GPU := qcom-adreno205
+TARGET_BOARD_PLATFORM_GPU := qcom-adreno200
 BOARD_CUSTOM_GRAPHICS:= ../../../device/samsung/chief/recovery/minui/graphics.c
 BOARD_EGL_CFG := device/samsung/chief/files/egl.cfg
 
@@ -79,7 +73,7 @@ BOARD_RECOVERY_HANDLES_MOUNT := true
 WITH_DEXPREOPT := true
 JS_ENGINE := v8
 
-TARGET_SPECIFIC_HEADER_PATH += device/samsung/chief/include
+TARGET_SPECIFIC_HEADER_PATH += device/samsung/chief/files
 
 # FM Radio (needed for the audio driver to compile)
 #BOARD_USE_QCOM_SPEECH:=true
@@ -92,4 +86,4 @@ TARGET_SPECIFIC_HEADER_PATH += device/samsung/chief/include
 #TARGET_GLOBAL_CPPFLAGS += -DHAVE_FM_RADIO
 #BOARD_USE_BROADCOM_FM_VOLUME_HACK := false
 
-
+TARGET_RELEASETOOL_OTA_FROM_TARGET_SCRIPT := 

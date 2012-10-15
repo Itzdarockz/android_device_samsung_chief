@@ -122,3 +122,4 @@ lib/libloc-rpc.so
 lib/libloc_api-rpc-qc.so
 lib/libloc_ext.so
 lib/libcommondefs.so
+lib/hw/gralloc.msm7k.so
