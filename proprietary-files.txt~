@@ -125,3 +125,8 @@ lib/liboem_rapi.so
 lib/libqmi.so
 lib/libdsnet.so
 lib/libdsutils.so
+lib/libaudio.so
+lib/libaudiopolicy.so
+lib/libmedia.so
+lib/libsamsungSoundbooster.so
+lib/lib_Samsung_Sound_Booster.so

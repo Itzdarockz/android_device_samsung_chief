@@ -1,18 +1,14 @@
 # inherit from the proprietary version
--include vendor/samsung/chief/BoardConfigVendor.mk
 -include device/semc/msm7x30-common/BoardConfigCommon.mk
+-include vendor/samsung/chief/BoardConfigVendor.mk
 
 # Board General info
-#TARGET_NO_BOOTLOADER := true
-HAVE_HTC_AUDIO_DRIVER := false
-BOARD_CAMERA_USE_GETBUFFERINFO:=true
 TARGET_BOOTLOADER_BOARD_NAME := SPH-D600
 BOARD_HAS_NO_SELECT_BUTTON := true
 TARGET_USES_2G_VM_SPLIT := false
 
 # audio
-BUILD_TINY_ANDROID := false
-QC_PROP := true
+HAVE_HTC_AUDIO_DRIVER := false
 BOARD_USES_GENERIC_AUDIO := false
 #TARGET_PROVIDES_LIBAUDIO := true
 
@@ -27,8 +23,6 @@ WIFI_DRIVER_MODULE_PATH := "/lib/modules/dhd.ko"
 WIFI_DRIVER_MODULE_ARG := "firmware_path=/system/etc/wifi/bcm4329_sta.bin nvram_path=/system/etc/wifi/nvram_net.txt"
 
 # video
-TARGET_BOARD_PLATFORM_GPU := qcom-adreno200
-BOARD_CUSTOM_GRAPHICS:= ../../../device/samsung/chief/recovery/minui/graphics.c
 BOARD_EGL_CFG := device/samsung/chief/files/egl.cfg
 
 # Bluetooth
@@ -62,28 +56,16 @@ BOARD_MISC_DEVICE := /dev/block/mtdblock11
 BOARD_BOOT_DEVICE := /dev/block/mtdblock6
 BOARD_RECOVERY_DEVICE := /dev/block/mtdblock7
 TARGET_USERIMAGES_USE_EXT4 := false
-BOARD_SDCARD_DEVICE_PRIMARY := /dev/block/vold/179:1 
+BOARD_SDCARD_DEVICE_PRIMARY := /dev/block/vold/179:1
 
-USE_CAMERA_STUB := true
-
-# custom lun0 file for USB Mass Storage
-#BOARD_UMS_LUNFILE := /sys/devices/platform/s3c-usbgadget/gadget/lun0/file
+# recovery
 BOARD_RECOVERY_HANDLES_MOUNT := true
+BOARD_CUSTOM_GRAPHICS:= ../../../device/samsung/chief/recovery/minui/graphics.c
+
 # JIT / Optimizations
 WITH_DEXPREOPT := true
 JS_ENGINE := v8
 
 TARGET_SPECIFIC_HEADER_PATH += device/samsung/chief/files
-
-# FM Radio (needed for the audio driver to compile)
-#BOARD_USE_QCOM_SPEECH:=true
-#BOARD_HAVE_FM_RADIO := true
-#BOARD_GLOBAL_CFLAGS += -DHAVE_FM_RADIO
-#BOARD_FM_DEVICE := bcm4325
-#BOARD_USE_BROADCOM_FM_VOLUME_HACK := true
-#BOARD_HAVE_FM_RADIO := true
-#TARGET_GLOBAL_CFLAGS += -DHAVE_FM_RADIO
-#TARGET_GLOBAL_CPPFLAGS += -DHAVE_FM_RADIO
-#BOARD_USE_BROADCOM_FM_VOLUME_HACK := false
 
 TARGET_RELEASETOOL_OTA_FROM_TARGET_SCRIPT := 

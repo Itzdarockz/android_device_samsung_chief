@@ -84,7 +84,6 @@ PRODUCT_COPY_FILES += \
 PRODUCT_COPY_FILES += \
     device/samsung/chief/files/system/etc/apns-conf.xml:system/etc/apns-conf.xml \
     device/samsung/chief/files/system/vendor/lib/libsec-ril.so:system/vendor/lib/libsec-ril.so \
-    device/samsung/chief/files/system/bin/qmuxd:system/bin/qmuxd \
     device/samsung/chief/files/system/bin/hciattach:system/bin/hciattach \
     device/samsung/chief/files/system/bin/rmt_storage:system/bin/rmt_storage \
     device/samsung/chief/files/system/bin/netmgrd:system/bin/netmgrd \
