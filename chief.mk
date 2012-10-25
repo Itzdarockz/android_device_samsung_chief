@@ -7,8 +7,6 @@ $(call inherit-product-if-exists, vendor/samsung/chief/chief-vendor.mk)
 
 DEVICE_PACKAGE_OVERLAYS += device/samsung/chief/overlay
 
--include device/semc/msm7x30-common/msm7x30.mk
-
 ifeq ($(TARGET_PREBUILT_KERNEL),)
 	LOCAL_KERNEL := device/samsung/chief/kernel
 else
@@ -16,19 +14,21 @@ else
 endif
 PRODUCT_COPY_FILES += \
     $(LOCAL_KERNEL):kernel
+
+PRODUCT_PACKAGES += \
+    hostap \
+    librs_jni \
+    gralloc.msm7k \
+    overlay.default \
+    screencap \
+    libOmxCore \
+    libOmxVenc \
+    libOmxVdec \
+    com.android.future.usb.accessory
     
 PRODUCT_PACKAGES += \
-    sensors.default
-
-#Offline charging animation
-PRODUCT_COPY_FILES += \
-    device/semc/msm7x30-common/prebuilt/animations/charging_animation_01_H.png:system/semc/chargemon/data/charging_animation_01.png \
-    device/semc/msm7x30-common/prebuilt/animations/charging_animation_02_H.png:system/semc/chargemon/data/charging_animation_02.png \
-    device/semc/msm7x30-common/prebuilt/animations/charging_animation_03_H.png:system/semc/chargemon/data/charging_animation_03.png \
-    device/semc/msm7x30-common/prebuilt/animations/charging_animation_04_H.png:system/semc/chargemon/data/charging_animation_04.png \
-    device/semc/msm7x30-common/prebuilt/animations/charging_animation_05_H.png:system/semc/chargemon/data/charging_animation_05.png \
-    device/semc/msm7x30-common/prebuilt/animations/charging_animation_06_H.png:system/semc/chargemon/data/charging_animation_06.png \
-    device/semc/msm7x30-common/prebuilt/animations/charging_animation_07_H.png:system/semc/chargemon/data/charging_animation_07.png
+    sensors.default \
+    lights.msm7k
 
 #kernel modules
 PRODUCT_COPY_FILES += \
@@ -54,7 +54,8 @@ PRODUCT_COPY_FILES += \
     device/samsung/chief/init.qcom.fm.sh:system/etc/init.qcom.fm.sh \
     device/samsung/chief/init.qcom.sdio.sh:system/etc/init.qcom.sdio.sh \
     device/samsung/chief/init.qcom.wifi.sh:system/etc/init.qcom.wifi.sh \
-    device/semc/msm7x30-common/prebuilt/logo_H.rle:root/logo.rle
+    device/samsung/chief/files/SPH-D600.rle:root/SPH-D600.rle \
+    device/samsung/chief/files/charging.rle:root/charging.rle
 
 # wifi files
 PRODUCT_COPY_FILES += \
@@ -80,21 +81,30 @@ PRODUCT_COPY_FILES += \
     device/samsung/chief/files/system/etc/firmware/vidc_720p_vc1_dec_mc.fw:/system/etc/firmware/vidc_720p_vc1_dec_mc.fw \
     device/samsung/chief/files/system/etc/firmware/vidc_720p_h264_enc_mc.fw:/system/etc/firmware/vidc_720p_h264_enc_mc.fw 
     
+# misc firmware
+PRODUCT_COPY_FILES += \
+    device/samsung/chief/files/system/etc/firmware/wlan/cfg.dat:system/etc/firmware/wlan/cfg.dat \
+    device/samsung/chief/files/system/etc/firmware/wlan/qcom_fw.bin:system/etc/firmware/wlan/qcom_fw.bin \
+    device/samsung/chief/files/system/etc/firmware/wlan/volans/WCN1314_qcom_fw.bin:system/etc/firmware/wlan/volans/WCN1314_qcom_fw.bin \
+    device/samsung/chief/files/system/etc/firmware/wlan/volans/WCN1314_qcom_wlan_nv.bin:system/etc/firmware/wlan/volans/WCN1314_qcom_wlan_nv.bin \
+    device/samsung/chief/files/system/etc/firmware/wlan/volans/WCN1314_cfg.dat:system/etc/firmware/wlan/volans/WCN1314_cfg.dat \
+    device/samsung/chief/files/system/etc/firmware/wlan/volans/WCN1314_qcom_cfg.ini:system/etc/firmware/wlan/volans/WCN1314_qcom_cfg.ini
+
 # misc for now
 PRODUCT_COPY_FILES += \
     device/samsung/chief/files/system/etc/apns-conf.xml:system/etc/apns-conf.xml \
     device/samsung/chief/files/system/vendor/lib/libsec-ril.so:system/vendor/lib/libsec-ril.so \
     device/samsung/chief/files/system/bin/qmuxd:system/bin/qmuxd \
-    device/samsung/chief/files/system/bin/hciattach:system/bin/hciattach \
     device/samsung/chief/files/system/bin/rmt_storage:system/bin/rmt_storage \
     device/samsung/chief/files/system/bin/netmgrd:system/bin/netmgrd \
     device/samsung/chief/files/system/bin/thermald:system/bin/thermald \
     device/samsung/chief/files/system/bin/geomagneticd:system/bin/geomagneticd \
     device/samsung/chief/files/system/bin/orientationd:system/bin/orientationd \
-    device/samsung/chief/files/system/bin/bluetoothd:system/bin/bluetoothd \
     device/samsung/chief/files/system/bin/cnd:system/bin/cnd \
     device/samsung/chief/files/system/bin/mfgloader:system/bin/mfgloader \
-    device/samsung/chief/files/system/bin/wlandutservice:system/bin/wlandutservice
+    device/samsung/chief/files/system/bin/wlandutservice:system/bin/wlandutservice \
+    device/samsung/chief/files/system/bin/btld:system/bin/btld \
+    vendor/cyanogen/prebuilt/mdpi/media/bootanimation.zip:system/media/bootanimation.zip
 
 $(call inherit-product, build/target/product/full.mk)
 
@@ -143,3 +153,6 @@ PRODUCT_DEVICE := chief
 PRODUCT_BRAND := samsung
 PRODUCT_MODEL := SPH-D600
 PRODUCT_MANUFACTURER := samsung
+CDMA_GOOGLE_BASE := android-sprint-us
+CDMA_CARRIER_ALPHA := Sprint
+CDMA_CARRIER_NUMERIC := 310120 

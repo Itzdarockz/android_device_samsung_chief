@@ -39,10 +39,12 @@ mkdir -p ../../../vendor/$VENDOR/$DEVICE
 
 # Prebuilt libraries that are needed to build open-source libraries
 #$OUTDIR/proprietary/lib/libcamera.so:obj/lib/libcamera.so \\
-PRODUCT_COPY_FILES += \\
-$OUTDIR/proprietary/lib/libaudioalsa.so:obj/lib/libaudioalsa.so 
+#$OUTDIR/proprietary/lib/libcameraservice.so:obj/lib/libcameraservice.so \\
+#$OUTDIR/proprietary/lib/libcamera_client.so:obj/lib/libcamera_client.so \\
+#$OUTDIR/proprietary/lib/liboemcamera.so:obj/lib/liboemcamera.so \\
 
 PRODUCT_COPY_FILES += \\
+$OUTDIR/proprietary/lib/libaudioalsa.so:obj/lib/libaudioalsa.so \\
 EOF
 
 LINEEND=" \\"

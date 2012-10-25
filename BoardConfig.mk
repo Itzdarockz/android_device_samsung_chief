@@ -1,16 +1,26 @@
 # inherit from the proprietary version
--include device/semc/msm7x30-common/BoardConfigCommon.mk
 -include vendor/samsung/chief/BoardConfigVendor.mk
 
 # Board General info
 TARGET_BOOTLOADER_BOARD_NAME := SPH-D600
+TARGET_BOARD_PLATFORM := msm7k
 BOARD_HAS_NO_SELECT_BUTTON := true
-TARGET_USES_2G_VM_SPLIT := false
+TARGET_CPU_ABI := armeabi-v7a
+TARGET_CPU_ABI2 := armeabi
+TARGET_ARCH_VARIANT := armv7-a-neon
+ARCH_ARM_HAVE_TLS_REGISTER := true
+BOARD_USES_QCOM_HARDWARE := true
+BOARD_USES_QCOM_GPS := true
+BOARD_USES_QCOM_LIBS := true
+BOARD_USES_QCOM_LIBRPC := true
+BOARD_USE_QCOM_PMEM := true
+
+# ril
 
 # audio
 HAVE_HTC_AUDIO_DRIVER := false
 BOARD_USES_GENERIC_AUDIO := false
-#TARGET_PROVIDES_LIBAUDIO := true
+TARGET_PROVIDES_LIBAUDIO := true
 
 # wifi
 BOARD_WPA_SUPPLICANT_DRIVER := WEXT
@@ -24,6 +34,7 @@ WIFI_DRIVER_MODULE_ARG := "firmware_path=/system/etc/wifi/bcm4329_sta.bin nvram_
 
 # video
 BOARD_EGL_CFG := device/samsung/chief/files/egl.cfg
+TARGET_BOARD_PLATFORM_GPU := qcom-adreno200
 
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true

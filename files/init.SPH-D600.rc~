@@ -140,7 +140,15 @@ on boot
     chown system input /sys/class/input/input8/data
     chown system input /sys/class/input/input8/status
 
-service hci_qcomm_init /system/bin/log -t qcom-bluetooth -p i "hci_qcomm_init service requested"
+# start btld if soft_onoff is enabled
+on property:service.brcm.bt.soft_onoff=1
+    start btld
+
+# stop btld if soft_onoff is disabled
+on property:service.brcm.bt.soft_onoff=0
+    stop btld
+
+service hci_qcomm_init /system/bin/logwrapper /system/bin/log -t qcom-bluetooth -p i "hci_qcomm_init service requested"
     user bluetooth
     group bluetooth net_bt_admin
     disabled
@@ -223,7 +231,7 @@ service hostapd /system/bin/wlan_tool hostapd
     oneshot
     disabled
 
-service dhcpcd_eth0 /system/bin/dhcpcd -BKL
+service dhcpcd_eth0 /system/bin/dhcpcd -BKL eth0
     disabled
     oneshot
 
@@ -270,14 +278,6 @@ on property:crypto.driver.load=0
 service qcom-sh /system/bin/sh /init.qcom.sh
     user root
     oneshot
-
-service SPH-D600-post-boot /system/bin/sh /init.SPH-D600.post_boot.sh
-    user root
-    disabled
-    oneshot
-
-on property:init.svc.bootanim=stopped
-    start SPH-D600-post-boot
 
 service ckpd /system/bin/CKPD-daemon
     user system

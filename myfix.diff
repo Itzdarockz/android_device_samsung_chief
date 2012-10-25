@@ -1,0 +1,5 @@
+607c607,608
+<         else if (strcmp((char* )name[i], "speaker_dual_mic_endfire_tx") == 0)
+---
+>         else if ((strcmp((char* )name[i], "speaker_dual_mic_endfire_tx") == 0) ||
+>         (strcmp((char* )name[i], "speaker_dual_mic_tx") == 0))
