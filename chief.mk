@@ -1,6 +1,8 @@
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 # The gps config appropriate for this device
 $(call inherit-product, device/common/gps/gps_us_supl.mk)
+# Inherit some common cyanogenmod stuff.
+$(call inherit-product, vendor/cyanogen/products/common_full.mk)
 
 $(call inherit-product-if-exists, vendor/samsung/chief/chief-vendor.mk)
 
@@ -23,7 +25,8 @@ PRODUCT_PACKAGES += \
     libOmxCore \
     libOmxVenc \
     libOmxVdec \
-    com.android.future.usb.accessory
+    com.android.future.usb.accessory \
+    hostapd
     
 PRODUCT_PACKAGES += \
     sensors.default \
@@ -89,8 +92,6 @@ PRODUCT_COPY_FILES += \
     device/samsung/chief/files/system/etc/firmware/wlan/volans/WCN1314_qcom_cfg.ini:system/etc/firmware/wlan/volans/WCN1314_qcom_cfg.ini \
     device/samsung/chief/files/system/bin/pppd_runner:system/bin/pppd_runner \
     device/samsung/chief/files/system/bin/drexe:system/bin/drexe \
-    device/samsung/chief/files/system/bin/hostapd:system/bin/hostapd \
-    device/samsung/chief/files/system/bin/hostapd_cli:system/bin/hostapd_cli \
     device/samsung/chief/files/system/etc/wifi/wifi.conf:system/etc/wifi/wifi.conf \
     device/samsung/chief/files/system/etc/wifi/wl:system/etc/wifi/wl \
     device/samsung/chief/files/system/etc/wifi/nvram_mfg.txt:system/etc/wifi/nvram_mfg.txt
@@ -131,7 +132,15 @@ PRODUCT_COPY_FILES += \
     device/samsung/chief/files/system/bin/mfgloader:system/bin/mfgloader \
     device/samsung/chief/files/system/bin/wlandutservice:system/bin/wlandutservice \
     device/samsung/chief/files/system/bin/btld:system/bin/btld \
-    vendor/cyanogen/prebuilt/mdpi/media/bootanimation.zip:system/media/bootanimation.zip
+    vendor/cyanogen/prebuilt/mdpi/media/bootanimation.zip:system/media/bootanimation.zip \
+    device/samsung/chief/files/system/etc/01_qcomm_omx.cfg:system/etc/01_qcomm_omx.cfg \
+    device/samsung/chief/files/system/etc/cdma-carriers-conf.xml:system/etc/cdma-carriers-conf.xml \
+    device/samsung/chief/files/system/etc/loc_parameter.ini:system/etc/loc_parameter.ini \
+    device/samsung/chief/files/system/etc/media_profiles.xml:system/etc/media_profiles.xml \
+    device/samsung/chief/files/system/etc/wimax_boot.bin:system/etc/wimax_boot.bin \
+    device/samsung/chief/files/system/etc/wimaxfw.bin:system/etc/wimaxfw.bin \
+    device/samsung/chief/files/system/etc/wimaxloader.bin:system/etc/wimaxloader.bin \
+    device/samsung/chief/files/system/etc/thermald.conf:system/etc/thermald.conf \
 
 $(call inherit-product, build/target/product/full.mk)
 
@@ -145,8 +154,8 @@ ril.subscription.types=NV
 # Perfomance tweaks and misc
 PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.execution-mode=int:jit \
-    dalvik.vm.heapsize=64m \
-    persist.sys.use_dithering=0 \
+    dalvik.vm.heapsize=48m \
+    persist.sys.use_dithering=1 \
     ro.compcache.default=0
 
 # Properties taken from build.prop
