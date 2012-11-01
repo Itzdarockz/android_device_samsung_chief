@@ -1,0 +1,57 @@
+# Chief_Rev11_nvram_mfg.txt   20110504
+# bcm94329sdagb board
+# $Copyright (C) 2008 Broadcom Corporation$
+
+sromrev=3
+vendid=0x14e4
+devid=0x432f
+boardtype=0x4b9
+boardrev=0x32
+boardflags=0x200
+
+# Specify the xtalfreq if it is otherthan 38.4MHz
+#xtalfreq=38400
+xtalfreq=26000
+
+aa2g=1
+aa5g=0
+
+ag0=255
+
+# 11g paparams sidekick
+pa0b0=6003,6003,5660
+pa0b1=64086,64086,64277
+pa0b2=65195,65195,65240
+pa0itssit=62
+pa0maxpwr=74
+
+ofdmpo=0x55555555
+mcs2gpo0=0x7777
+mcs2gpo1=0x7777
+
+# 11g rssi params
+rssismf2g=0xa,0xa,0xa
+rssismc2g=0xb,0xb,0xa
+rssisav2g=0x3,0x3,0x3
+bxa2g=0
+
+# country code
+ccode=ALL
+
+cckdigfilttype=1
+ofdmdigfilttype=1
+
+rxpo2g=0
+#tri2g=101
+#rxpo2gchnflg=0x1FFF
+
+boardnum=1
+macaddr=00:90:4c:c5:00:34
+sd_gpout=0
+sd_gpval=1
+sd_oobonly=1
+
+
+#for BT-coexistence
+btc_params80=0
+btc_params6=10

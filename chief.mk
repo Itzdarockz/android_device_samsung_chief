@@ -1,5 +1,4 @@
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
-$(call inherit-product, vendor/cyanogen/products/common_full.mk)
 # The gps config appropriate for this device
 $(call inherit-product, device/common/gps/gps_us_supl.mk)
 
@@ -63,7 +62,6 @@ PRODUCT_COPY_FILES += \
     device/samsung/chief/files/system/etc/wifi/bcm4329_sta.bin:/system/etc/wifi/bcm4329_sta.bin \
     device/samsung/chief/files/system/etc/wifi/bcm4329_aps.bin:/system/etc/wifi/bcm4329_aps.bin \
     device/samsung/chief/files/system/etc/wifi/nvram_net.txt:system/etc/wifi/nvram_net.txt \
-    device/samsung/chief/files/system/etc/wifi/bcm4329_aps.bin:/system/etc/wifi/bcm4329_aps.bin \
     device/samsung/chief/files/system/etc/wifi/bcm4329_mfg.bin:/system/etc/wifi/bcm4329_mfg.bin \
     device/samsung/chief/files/system/etc/wifi/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
     device/samsung/chief/files/system/etc/dhcpcd/dhcpcd.conf:system/etc/dhcpcd/dhcpcd.conf \
@@ -88,7 +86,36 @@ PRODUCT_COPY_FILES += \
     device/samsung/chief/files/system/etc/firmware/wlan/volans/WCN1314_qcom_fw.bin:system/etc/firmware/wlan/volans/WCN1314_qcom_fw.bin \
     device/samsung/chief/files/system/etc/firmware/wlan/volans/WCN1314_qcom_wlan_nv.bin:system/etc/firmware/wlan/volans/WCN1314_qcom_wlan_nv.bin \
     device/samsung/chief/files/system/etc/firmware/wlan/volans/WCN1314_cfg.dat:system/etc/firmware/wlan/volans/WCN1314_cfg.dat \
-    device/samsung/chief/files/system/etc/firmware/wlan/volans/WCN1314_qcom_cfg.ini:system/etc/firmware/wlan/volans/WCN1314_qcom_cfg.ini
+    device/samsung/chief/files/system/etc/firmware/wlan/volans/WCN1314_qcom_cfg.ini:system/etc/firmware/wlan/volans/WCN1314_qcom_cfg.ini \
+    device/samsung/chief/files/system/bin/pppd_runner:system/bin/pppd_runner \
+    device/samsung/chief/files/system/bin/drexe:system/bin/drexe \
+    device/samsung/chief/files/system/bin/hostapd:system/bin/hostapd \
+    device/samsung/chief/files/system/bin/hostapd_cli:system/bin/hostapd_cli \
+    device/samsung/chief/files/system/etc/wifi/wifi.conf:system/etc/wifi/wifi.conf \
+    device/samsung/chief/files/system/etc/wifi/wl:system/etc/wifi/wl \
+    device/samsung/chief/files/system/etc/wifi/nvram_mfg.txt:system/etc/wifi/nvram_mfg.txt
+
+# Telephony property for CDMA
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.config.vc_call_vol_steps=15 \
+    ro.telephony.default_network=4 \
+    ro.com.google.clientidbase=android-sprint-us \
+    ro.cdma.home.operator.numeric=310120 \
+    ro.cdma.home.operator.alpha=Sprint \
+    net.cdma.pppd.authtype=require-pap \
+    net.cdma.pppd.user=user[SPACE]SprintNextel \
+    net.cdma.datalinkinterface=/dev/ttyCDMA0 \
+    net.interfaces.defaultroute=cdma \
+    net.cdma.ppp.interface=ppp0 \
+    net.connectivity.type=CDMA1 \
+    mobiledata.interfaces=ppp0,uwbr0 \
+    ro.telephony.ril_class=samsung \
+    ro.ril.samsung_cdma=true
+
+# WiMAX Property setting for checking WiMAX interface
+PRODUCT_PROPERTY_OVERRIDES += \
+    ro.wimax.interface=uwbr0 \
+    net.tcp.buffersize.wimax=4092,87380,1520768,4092,16384,1520768
 
 # misc for now
 PRODUCT_COPY_FILES += \
@@ -113,13 +140,7 @@ PRODUCT_BUILD_PROP_OVERRIDES += BUILD_UTC_DATE=0
 PRODUCT_PROPERTY_OVERRIDES := \
 wifi.interface=eth0\
 wifi.supplicant_scan_interval=15\
-rild.libpath=/system/vendor/lib/libsec-ril.so\
-rild.libargs='-d /dev/smd0'\
 ril.subscription.types=NV
-#[rild.libpath]: [/system/lib/libsec-ril.so]
-#[rild.libargs]: [-d >> out/target/product/chief/system/build.prop;  echo /dev/smd0]
-#[rild.libpath]: [/system/lib/libsec-ril.so]
-#[rild.libargs]: [-d /dev/smd0]
 
 # Perfomance tweaks and misc
 PRODUCT_PROPERTY_OVERRIDES += \
@@ -130,7 +151,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 
 # Properties taken from build.prop
 PRODUCT_PROPERTY_OVERRIDES += \
-    ro.com.google.clientidbase=android-samsung \
     ro.com.google.clientidbase.yt=android-sprint-us \
     ro.com.google.clientidbase.am=android-sprint-us \
     ro.com.google.clientidbase.ms=android-sprint-us \

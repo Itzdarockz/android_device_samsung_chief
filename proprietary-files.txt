@@ -67,7 +67,6 @@ lib/libomx_mp3dec_ari_sharedlibrary.so
 lib/libomx_sharedlibrary.so
 lib/libomx_wmadec_ari_sharedlibrary.so
 lib/libomx_wmvdec_ari_sharedlibrary.so
-lib/libril.so
 lib/librefcne.so
 lib/libsec-ril.so
 lib/liboncrpc.so
@@ -103,3 +102,4 @@ lib/libqcomm_omx.so
 lib/hw/sensors.default.so
 lib/libbluedroid.so
 lib/libaudioalsa.so
+lib/libsecril-client.so
